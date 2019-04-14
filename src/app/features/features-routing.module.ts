@@ -4,8 +4,10 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { BugListComponent } from './bug-list/bug-list.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
   { path: 'welcome', component: WelcomePageComponent },
-  { path: 'bug-list', component: BugListComponent}
+  { path: 'bug-list', component: BugListComponent },
+  { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
 ];
 
 @NgModule({

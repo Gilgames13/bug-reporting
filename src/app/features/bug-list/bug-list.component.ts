@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RestServicesService } from 'src/app/shared/rest-services/rest-services.service';
+import { BugRestApiService } from 'src/app/shared/rest-services/bug-rest-api.service';
 import { Bug } from 'src/app/shared/models/Bug';
+import { BugsDatasource } from './bugs-datasource';
 
 @Component({
   selector: 'app-bug-list',
@@ -9,12 +10,14 @@ import { Bug } from 'src/app/shared/models/Bug';
 })
 export class BugListComponent implements OnInit {
 
-  constructor(private restService: RestServicesService) { }
+  listOfBugs: BugsDatasource;
+  displayedColumns: string[] = ['id', 'title'];
+
+  constructor(private restService: BugRestApiService) { }
 
   ngOnInit() {
-    this.restService.getAllBugs().subscribe((bugs: Bug[]) => {
-      console.log(bugs);
-    });
+    this.listOfBugs = new BugsDatasource(this.restService);
+    this.listOfBugs.loadBugs();
   }
 
 }

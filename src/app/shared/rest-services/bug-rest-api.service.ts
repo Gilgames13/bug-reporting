@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RestServicesService {
+export class BugRestApiService {
 
   constructor(private http: HttpClient) { }
 

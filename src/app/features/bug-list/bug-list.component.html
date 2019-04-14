@@ -1,3 +1,26 @@
-<p>
-  bug-list works!
-</p>
+<div>
+  <h4>Bugs List</h4>
+  <mat-divider class="mb-3"></mat-divider>
+  <mat-card>
+    <mat-table [dataSource]="listOfBugs">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let bug">
+          {{bug.id}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+        <mat-cell class="description-cell" *matCellDef="let bug">
+          {{bug.title}}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </mat-card>
+
+</div>
