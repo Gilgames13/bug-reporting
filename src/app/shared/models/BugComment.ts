@@ -2,7 +2,7 @@ export class BugComment {
   reporter: string;
   description: string;
 
-  constructor(){
+  constructor() {
     this.reporter = '';
     this.description = '';
   }

@@ -7,6 +7,8 @@ export class Bug {
   reporter: string;
   status: string;
   comments: BugComment[];
+  createdAt: Date;
+  updatedAt: Date;
 
   constructor(title = '', description = '', priority = -1, reporter = '', status = '', comments = []) {
     this.title = title;
@@ -15,5 +17,7 @@ export class Bug {
     this.reporter = reporter;
     this.status = status;
     this.comments = comments;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
   }
 }
