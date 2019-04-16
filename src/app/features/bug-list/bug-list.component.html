@@ -17,10 +17,40 @@
         </mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="priority">
+        <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
+        <mat-cell class="description-cell" *matCellDef="let bug">
+          {{bug.priority}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="reporter">
+        <mat-header-cell *matHeaderCellDef>Reporter</mat-header-cell>
+        <mat-cell class="description-cell" *matCellDef="let bug">
+          {{bug.reporter}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef>Date Created</mat-header-cell>
+        <mat-cell class="description-cell" *matCellDef="let bug">
+          {{bug.createdAt | date:'dd/MM/yyyy'}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell class="description-cell" *matCellDef="let bug">
+          {{bug.status}}
+        </mat-cell>
+      </ng-container>
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
+    <!-- <mat-paginator [length]="this.dataSource.totalApplications" -->
+                           <!-- [pageSizeOptions]="[5, 10, 20, this.dataSource.totalApplications]" [showFirstLastButtons]="true"></mat-paginator> -->
   </mat-card>
 
 </div>

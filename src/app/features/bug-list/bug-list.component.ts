@@ -11,7 +11,7 @@ import { BugsDatasource } from './bugs-datasource';
 export class BugListComponent implements OnInit {
 
   listOfBugs: BugsDatasource;
-  displayedColumns: string[] = ['id', 'title'];
+  displayedColumns: string[] = ['title', 'priority', 'reporter', 'createdAt', 'status'];
 
   constructor(private restService: BugRestApiService) { }
 
