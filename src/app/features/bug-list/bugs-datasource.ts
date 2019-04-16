@@ -23,12 +23,12 @@ export class BugsDatasource extends DataSource<Bug> {
   disconnect(collectionViewer: CollectionViewer): void {
   }
 
-  loadBugs( pageNumber: number = 0, pageSize: number = 10,
+  loadBugs(pageNumber: number = 0, pageSize: number = 5,
             sortBy: string = '', sortOrder: string = '', filters: GetParam[] = []): Observable<Bug[]> {
-    return this.restService.getBugsPaginatedSortedWithFilters().pipe(
+    return this.restService.getBugsPaginatedSortedWithFilters(pageNumber, pageSize, sortBy, sortOrder, filters).pipe(
       map((response: HttpResponse<Bug[]>) => {
         this.totalRecords = Number(response.headers.get('Totalrecords'));
-        console.log(this.totalRecords);
+        console.log('Total Records: ' + this.totalRecords);
         return response.body;
       },
         catchError((err) => {
