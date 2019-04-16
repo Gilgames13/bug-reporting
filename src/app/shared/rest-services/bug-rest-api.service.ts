@@ -4,6 +4,7 @@ import { Bug } from '../models/Bug';
 import { environment as env } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { GetParam } from '../models/GetParam';
+import { Filters } from '../models/filters';
 
 @Injectable({
   providedIn: 'root'
@@ -19,15 +20,20 @@ export class BugRestApiService {
   }
 
   getBugsPaginatedSortedWithFilters(pageNumber: number = 0, pageSize: number = 10,
-      sortBy: string = '', sortOrder: string = '', filters: GetParam[] = []): Observable<HttpResponse<Bug[]>> {
+    sortBy: string = '', sortOrder: string = '', filters: Filters = new Filters()): Observable<HttpResponse<Bug[]>> {
     let params = new HttpParams()
       .set('page', pageNumber.toString())
       .set('size', pageSize.toString());
     params = sortBy !== '' ? params.set('sort', sortBy + ',' + sortOrder) : params;
 
-    filters.forEach((param) => {
-      params = params.set(param.key, param.value);
-    });
+    params = params.set('title', filters.title);
+    params = params.set('priority', filters.priority);
+    params = params.set('reporter', filters.reporter);
+    params = params.set('status', filters.status);
+
+    // filters.forEach((param) => {
+    //   params = params.set(param.key, param.value);
+    // });
 
     return this.http.get<Bug[]>(`${env.api_root}/bugs`, { observe: 'response', params });
   }

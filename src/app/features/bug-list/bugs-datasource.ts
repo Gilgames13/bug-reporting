@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { BugRestApiService } from 'src/app/shared/rest-services/bug-rest-api.service';
 import { GetParam } from 'src/app/shared/models/GetParam';
 import { HttpResponse } from '@angular/common/http';
+import { Filters } from '../../shared/models/filters';
 
 
 export class BugsDatasource extends DataSource<Bug> {
@@ -23,8 +24,8 @@ export class BugsDatasource extends DataSource<Bug> {
   disconnect(collectionViewer: CollectionViewer): void {
   }
 
-  loadBugs( pageNumber: number = 0, pageSize: number = 10,
-            sortBy: string = '', sortOrder: string = '', filters: GetParam[] = []): Observable<Bug[]> {
+  loadBugs(pageNumber: number = 0, pageSize: number = 10,
+           sortBy: string = '', sortOrder: string = '', filters: Filters = new Filters()): Observable<Bug[]> {
     return this.restService.getBugsPaginatedSortedWithFilters().pipe(
       map((response: HttpResponse<Bug[]>) => {
         this.totalRecords = Number(response.headers.get('Totalrecords'));

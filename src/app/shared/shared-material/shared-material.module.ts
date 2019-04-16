@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule, MatButtonModule, MatDividerModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatCardModule } from '@angular/material';
+import {
+  MatToolbarModule, MatButtonModule, MatDividerModule,
+  MatTableModule, MatSortModule, MatProgressSpinnerModule,
+  MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule
+} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -23,7 +27,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatTableModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
   ]
 })
 export class SharedMaterialModule { }
