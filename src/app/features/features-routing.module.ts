@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
   { path: 'bug-list', component: BugListComponent },
   { path: 'add-bug', component: BugFormComponent },
-  { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
+  { path: 'edit-bug/:id', component: BugFormComponent },
+  { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
 ];
 
 @NgModule({

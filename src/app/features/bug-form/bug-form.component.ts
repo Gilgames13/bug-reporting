@@ -4,9 +4,12 @@ import { PriorityEnum } from 'src/app/shared/enums/PriorityEnum';
 import { RoleEnum } from 'src/app/shared/enums/RoleEnum';
 import { StatusEnum } from 'src/app/shared/enums/StatusEnum';
 import { BugRestApiService } from 'src/app/shared/rest-services/bug-rest-api.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { $enum } from 'ts-enum-util';
 import { MatSnackBar } from '@angular/material';
+import { Bug } from 'src/app/shared/models/Bug';
+import { map, flatMap, catchError } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-bug-form',
@@ -20,10 +23,30 @@ export class BugFormComponent implements OnInit {
   roleOptions: RoleEnum[] = [RoleEnum.QA, RoleEnum.PO, RoleEnum.DEV];
   statusOptions: StatusEnum[] = [StatusEnum.READY_FOR_TEST, StatusEnum.DONE, StatusEnum.REJECTED];
   priorityOptions = $enum(PriorityEnum).getEntries();
+  editingBug: Bug = null;
 
-  constructor(private restApi: BugRestApiService, private router: Router, private snackBar: MatSnackBar) { }
+  constructor(private restApi: BugRestApiService, private router: Router, private snackBar: MatSnackBar, private currentRoute: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.currentRoute.params.pipe(
+      map((params): string => params.id),
+      flatMap((id) => {
+        if (id) {
+          return this.restApi.getBugById(id);
+        }
+        return of(null);
+      }),
+      catchError((err) => {
+        this.snackBar.open(`Invalid bug ID ${err.error.message}`, 'OK', { duration: 4000 });
+        return null;
+      })
+    ).subscribe((result: Bug) => this.editOrCreateBug(result));
+  }
+
+  editOrCreateBug(bug: Bug) {
+    this.editingBug = bug;
+    console.log('will edit', bug);
     this.bugForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
