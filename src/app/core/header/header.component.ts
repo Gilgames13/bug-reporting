@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BugRestApiService } from 'src/app/shared/rest-services/bug-rest-api.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public restApi: BugRestApiService) { }
 
   ngOnInit() {
   }
 
+  logout() {
+    this.restApi.logout();
+  }
 }
