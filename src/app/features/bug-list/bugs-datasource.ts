@@ -28,11 +28,11 @@ export class BugsDatasource extends DataSource<Bug> {
 
   loadBugs( pageNumber: number = 0, pageSize: number = 10,
             sortBy: string = '', sortOrder: string = '', filters: Filters = new Filters()) {
-   this.loading$.next(true);
+    this.loading$.next(true);
     this.restService.getBugsPaginatedSortedWithFilters(pageNumber, pageSize, sortBy, sortOrder, filters).pipe(
       map((response: HttpResponse<Bug[]>) => {
         this.totalRecords = Number(response.headers.get('Totalrecords'));
-        console.log(this.totalRecords);
+        console.log('Total Records: ' + this.totalRecords);
         return response.body;
       },
         catchError((err) => {

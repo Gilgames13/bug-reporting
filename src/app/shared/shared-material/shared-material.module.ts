@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule, MatButtonModule, MatDividerModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatCardModule,MatFormFieldModule, MatInputModule, MatIconModule,MatSnackBarModule, MatTooltipModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatDividerModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatCardModule,MatFormFieldModule, MatInputModule, MatIconModule,MatSnackBarModule, MatTooltipModule,MatPaginatorModule, MatPaginator } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
@@ -15,6 +15,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     MatTableModule,
     MatSortModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
     MatSnackBarModule,
     MatTooltipModule,
     MatFormFieldModule,
@@ -32,11 +33,16 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     MatProgressSpinnerModule,
     MatCardModule,
     MatFormFieldModule,
+    
     MatInputModule,
-    MatIconModule,
     MatSnackBarModule,
     MatTooltipModule,
-    AngularFontAwesomeModule
+    
+    
+    MatIconModule,
+
+    AngularFontAwesomeModule,
+MatPaginatorModule,
   ]
 })
 export class SharedMaterialModule { }
