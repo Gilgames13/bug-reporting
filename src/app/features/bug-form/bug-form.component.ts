@@ -50,8 +50,7 @@ export class BugFormComponent implements OnInit {
         (error) => {
           this.snackBar.open(`Error while saving: ${error.error.message}`, 'OK', { duration: 8000 });
         });
-    }
-    else {
+    } else {
       this.snackBar.open(`There are still errors in the form`, 'OK', { duration: 4000 });
     }
   }
