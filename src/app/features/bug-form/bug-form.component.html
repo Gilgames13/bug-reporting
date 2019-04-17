@@ -1,0 +1,59 @@
+<div style="width:50vw;margin:0 auto;">
+  <h4>Add New Bug</h4>
+  <mat-divider class="mb-3"></mat-divider>
+  <mat-card>
+    <form [formGroup]="bugForm">
+      <div class="row">
+        <div class="col">
+          <label>Title <span class="required-field" *ngIf="bugForm.get('title').invalid">*</span></label>
+          <input type="text" class="form-control" formControlName="title" name="title">
+          <div class="required-field" *ngIf="bugForm.get('title').invalid && bugForm.get('title').dirty">Field is required</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label>Description <span class="required-field" *ngIf="bugForm.get('description').invalid">*</span></label>
+          <textarea rows=4 class="form-control" formControlName="description" name="description"></textarea>
+          <div class="required-field" *ngIf="bugForm.get('description').invalid && bugForm.get('description').dirty">Field is required</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label>Priority <span class="required-field" *ngIf="bugForm.get('priority').invalid">*</span></label>
+          <select class="form-control" formControlName="priority" name="priority">
+            <option [ngValue]="null">- Please Select -</option>
+            <option *ngFor="let priorityOption of priorityOptions;" [ngValue]="priorityOption[1]">
+              {{priorityOption[0]}}
+            </option>
+          </select>
+          <div class="required-field" *ngIf="bugForm.get('priority').invalid && bugForm.get('priority').dirty">Field is required</div>
+        </div>
+        <div class="col">
+          <label>Reporter</label>
+          <select class="form-control" formControlName="reporter" name="reporter">
+            <option [ngValue]="null">- Please Select -</option>
+            <option *ngFor="let roleOption of roleOptions;">
+              {{roleOption}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label>Status <span class="required-field" *ngIf="bugForm.get('status').invalid">*</span></label>
+          <select class="form-control" formControlName="status" name="status">
+            <option [ngValue]="null">- Please Select -</option>
+            <option *ngFor="let statusOption of statusOptions;">
+              {{statusOption}}
+            </option>
+          </select>
+          <div class="required-field" *ngIf="bugForm.get('status').invalid && bugForm.get('status').dirty">Field is required</div>
+        </div>
+      </div>
+    </form>
+    <mat-card-actions class="text-center mt-3">
+      <button mat-raised-button color="primary" (click)="addBug()">Add bug</button>
+      <button mat-raised-button [routerLink]="['/bug-list']" color="accent">Cancel and return</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
