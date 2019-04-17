@@ -21,12 +21,7 @@ export class BugListComponent implements OnInit {
 
   ngOnInit() {
     this.listOfBugs = new BugsDatasource(this.restService);
-    // this.listOfBugs.loadBugs();
-    this.restService.getAllBugs().
-      subscribe(response => {
-        this.myList = response.body;
-      },
-        error => console.log('error while getting data'));
+    this.listOfBugs.loadBugs();
   }
 
   createForm() {
@@ -40,11 +35,7 @@ export class BugListComponent implements OnInit {
 
   search() {
     console.log('search');
-    this.restService.getBugsPaginatedSortedWithFilters(0, 10, '', '', this.bugSearchForm.value as Filters).
-      subscribe(response => {
-        this.myList = response.body;
-      },
-        error => console.log('error while getting data'));
+    this.listOfBugs.loadBugs(0, 10, '', '', this.bugSearchForm.value as Filters);
   }
 
 }

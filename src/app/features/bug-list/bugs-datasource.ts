@@ -27,7 +27,7 @@ export class BugsDatasource extends DataSource<Bug> {
   }
 
   loadBugs( pageNumber: number = 0, pageSize: number = 10,
-            sortBy: string = '', sortOrder: string = '', filters: Filters = new Filters()): Observable<Bug[]> {
+            sortBy: string = '', sortOrder: string = '', filters: Filters = new Filters()) {
    this.loading$.next(true);
     this.restService.getBugsPaginatedSortedWithFilters(pageNumber, pageSize, sortBy, sortOrder, filters).pipe(
       map((response: HttpResponse<Bug[]>) => {
