@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  MatToolbarModule, MatButtonModule, MatDividerModule,
-  MatTableModule, MatSortModule, MatProgressSpinnerModule,
-  MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule
-} from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatDividerModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatCardModule,MatFormFieldModule, MatInputModule, MatIconModule,MatSnackBarModule, MatTooltipModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [],
@@ -17,7 +14,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatDividerModule,
     MatTableModule,
     MatSortModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    AngularFontAwesomeModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -30,7 +33,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule,
+    MatTooltipModule,
+    AngularFontAwesomeModule
   ]
 })
 export class SharedMaterialModule { }

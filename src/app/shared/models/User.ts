@@ -1,7 +1,7 @@
 import { RoleEnum } from '../enums/RoleEnum';
 
 export class User {
-  username: string;
-  password: string;
-  role: RoleEnum;
+  username: string = null;
+  password: string = null;
+  role: RoleEnum = null;
 }

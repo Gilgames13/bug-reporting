@@ -2,8 +2,7 @@
   <h4>Bugs List</h4>
   <mat-divider class="mb-3"></mat-divider>
   <mat-card>
-
-    <form (ngSubmit)="search()" [formGroup]="bugSearchForm">
+<form (ngSubmit)="search()" [formGroup]="bugSearchForm">
       <mat-form-field>
         <input matInput placeholder="Title" formControlName="title">
       </mat-form-field>
@@ -20,8 +19,10 @@
         <mat-icon>search</mat-icon>Search
       </button>
     </form>
-
-    <mat-table [dataSource]="myList">
+<a mat-mini-fab color="accent" class="ml-auto" style="display:block;" [routerLink]="['/add-bug']" matTooltip="Add a new bug" matTooltipPosition="left">
+      <fa name="plus" size="lg"></fa>
+    </a>
+    <mat-table [dataSource]="listOfBugs">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
         <mat-cell *matCellDef="let bug">
