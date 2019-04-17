@@ -15,7 +15,7 @@ import { Filters } from '../../shared/models/filters';
 export class BugListComponent implements OnInit, AfterViewInit {
 
   listOfBugs: BugsDatasource;
-  displayedColumns: string[] = ['title', 'priority', 'reporter', 'createdAt', 'status'];
+  displayedColumns: string[] = ['title', 'priority', 'reporter', 'createdAt', 'status', 'Actions'];
   totalBugs: number;
   bugSearchForm: FormGroup;
 

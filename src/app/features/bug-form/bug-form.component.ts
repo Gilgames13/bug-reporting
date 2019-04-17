@@ -25,7 +25,10 @@ export class BugFormComponent implements OnInit {
   priorityOptions = $enum(PriorityEnum).getEntries();
   editingBug: Bug = null;
 
-  constructor(private restApi: BugRestApiService, private router: Router, private snackBar: MatSnackBar, private currentRoute: ActivatedRoute) { }
+  constructor(private restApi: BugRestApiService,
+              private router: Router,
+              private snackBar: MatSnackBar,
+              private currentRoute: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -52,7 +55,8 @@ export class BugFormComponent implements OnInit {
       description: new FormControl('', Validators.required),
       priority: new FormControl(null, Validators.required),
       reporter: new FormControl(''),
-      status: new FormControl()
+      status: new FormControl(),
+      id: new FormControl()
     });
 
     this.bugForm.get('reporter').valueChanges.subscribe((value: RoleEnum) => {
@@ -63,6 +67,9 @@ export class BugFormComponent implements OnInit {
       }
       this.bugForm.get('status').updateValueAndValidity();
     });
+    if (bug) {
+      this.bugForm.patchValue(bug);
+    }
   }
 
   addBug() {
