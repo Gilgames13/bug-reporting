@@ -9,7 +9,7 @@ import { tap } from 'rxjs/operators';
   templateUrl: './bug-list.component.html',
   styleUrls: ['./bug-list.component.scss']
 })
-export class BugListComponent implements OnInit {
+export class BugListComponent implements OnInit, AfterViewInit {
 
   listOfBugs: BugsDatasource;
   displayedColumns: string[] = ['title', 'priority', 'reporter', 'createdAt', 'status'];
@@ -21,7 +21,7 @@ export class BugListComponent implements OnInit {
 
   ngOnInit() {
     this.listOfBugs = new BugsDatasource(this.restService);
-    this.listOfBugs.loadBugs();    
+    this.listOfBugs.loadBugs();
   }
 
   ngAfterViewInit() {
@@ -33,7 +33,7 @@ export class BugListComponent implements OnInit {
   }
 
   loadNextBugs() {
-    console.log('Page index: ' + this.paginator.pageIndex);    
+    console.log('Page index: ' + this.paginator.pageIndex);
     this.listOfBugs.loadBugs(this.paginator.pageIndex, 5, '', '', []).subscribe();
   }
 
