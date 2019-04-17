@@ -52,7 +52,7 @@ export class BugListComponent implements OnInit, AfterViewInit {
 
 loadNextBugs() {
     console.log('Page index: ' + this.paginator.pageIndex);
-    this.listOfBugs.loadBugs(this.paginator.pageIndex, 5, '', '', []).subscribe();
+    this.listOfBugs.loadBugs(this.paginator.pageIndex, 5, '', '', this.bugSearchForm.value as Filters);
   }
 
 }
