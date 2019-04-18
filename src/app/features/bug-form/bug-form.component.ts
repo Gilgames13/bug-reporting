@@ -6,11 +6,13 @@ import { StatusEnum } from 'src/app/shared/enums/StatusEnum';
 import { BugRestApiService } from 'src/app/shared/rest-services/bug-rest-api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { $enum } from 'ts-enum-util';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog, MatDialogConfig } from '@angular/material';
 import { Bug } from 'src/app/shared/models/Bug';
 import { map, flatMap, catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { BugComment } from 'src/app/shared/models/BugComment';
+import { GenericDialogValues } from 'src/app/shared/enums/GenericDialogValues';
+import { GenericDialogComponent } from 'src/app/shared/shared-material/generic-dialog/generic-dialog.component';
 
 @Component({
   selector: 'app-bug-form',
@@ -27,9 +29,10 @@ export class BugFormComponent implements OnInit {
   editingBug: Bug = null;
 
   constructor(private restApi: BugRestApiService,
-              private router: Router,
-              private snackBar: MatSnackBar,
-              private currentRoute: ActivatedRoute) { }
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private currentRoute: ActivatedRoute,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.currentRoute.params.pipe(
@@ -118,5 +121,21 @@ export class BugFormComponent implements OnInit {
       reporter: new FormControl(comment.reporter),
       description: new FormControl(comment.description)
     });
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.bugForm.dirty) {
+      const dialogConfig: MatDialogConfig<GenericDialogValues> = {
+        disableClose: true,
+        data: {
+          title: `Unsaved changes`,
+          content: `You have unsaved changes! Are you sure you want navigate away from the page?`,
+          acceptButton: 'Yes',
+          cancelButton: 'Cancel'
+        }
+      };
+      return this.dialog.open(GenericDialogComponent, dialogConfig).afterClosed();
+    }
+    return true;
   }
 }
