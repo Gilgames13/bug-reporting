@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { PriorityEnum } from 'src/app/shared/enums/PriorityEnum';
 import { RoleEnum } from 'src/app/shared/enums/RoleEnum';
 import { StatusEnum } from 'src/app/shared/enums/StatusEnum';
@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material';
 import { Bug } from 'src/app/shared/models/Bug';
 import { map, flatMap, catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
+import { BugComment } from 'src/app/shared/models/BugComment';
 
 @Component({
   selector: 'app-bug-form',
@@ -17,7 +18,7 @@ import { of, Observable } from 'rxjs';
   styleUrls: ['./bug-form.component.scss']
 })
 export class BugFormComponent implements OnInit {
-
+  consoleLog = console.log;
   bugForm: FormGroup;
   objectKeys = Object.keys;
   roleOptions: RoleEnum[] = [RoleEnum.QA, RoleEnum.PO, RoleEnum.DEV];
@@ -31,7 +32,6 @@ export class BugFormComponent implements OnInit {
               private currentRoute: ActivatedRoute) { }
 
   ngOnInit() {
-
     this.currentRoute.params.pipe(
       map((params): string => params.id),
       flatMap((id) => {
@@ -56,7 +56,8 @@ export class BugFormComponent implements OnInit {
       priority: new FormControl(null, Validators.required),
       reporter: new FormControl(''),
       status: new FormControl(),
-      id: new FormControl()
+      id: new FormControl(),
+      comments: new FormArray([])
     });
 
     this.bugForm.get('reporter').valueChanges.subscribe((value: RoleEnum) => {
@@ -67,14 +68,30 @@ export class BugFormComponent implements OnInit {
       }
       this.bugForm.get('status').updateValueAndValidity();
     });
+
+    // In this case we have an edit
     if (bug) {
       this.bugForm.patchValue(bug);
+
+      // If we have previous comments, we patch the values
+      if (bug.comments) {
+        bug.comments.forEach((currentBugComment) => {
+          (this.bugForm.get('comments') as FormArray).push(this.createNewComment(currentBugComment));
+        });
+      }
+
+      // We also add a new comment formgroup that is editable
+      (this.bugForm.get('comments') as FormArray).push(this.createNewComment());
     }
   }
 
-  addBug() {
+  saveBug() {
     if (this.bugForm.valid) {
-      this.restApi.createNewBug(this.bugForm.value).subscribe((value) => {
+      let toExec = this.restApi.createNewBug(this.bugForm.value);
+      if (this.editingBug) {
+        toExec = this.restApi.updateBug(this.editingBug.id, this.bugForm.value);
+      }
+      toExec.subscribe((value) => {
         this.router.navigate(['/bug-list']);
       },
         (error) => {
@@ -83,5 +100,23 @@ export class BugFormComponent implements OnInit {
     } else {
       this.snackBar.open(`There are still errors in the form`, 'OK', { duration: 4000 });
     }
+  }
+
+  addComment() {
+    // We do this to "trigger" the reload of formarray, because other than that, the formgroup does not seem to refresh
+    const id = this.editingBug.id;
+    this.restApi.updateBug(id, this.bugForm.value).subscribe((bug: Bug) => {
+      this.editingBug = null;
+      this.restApi.getBugById(id).subscribe((result: Bug) => this.editOrCreateBug(result));
+    }, (error) => {
+      this.snackBar.open(`Error while updating: ${error.error.message}`, 'OK', { duration: 8000 });
+    });
+  }
+
+  createNewComment(comment: BugComment = { reporter: '', description: '' }) {
+    return new FormGroup({
+      reporter: new FormControl(comment.reporter),
+      description: new FormControl(comment.description)
+    });
   }
 }

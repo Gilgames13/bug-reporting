@@ -1,4 +1,8 @@
 <div style="width:50vw;margin:0 auto;">
+  <div class="p-2 m-2 text-center" *ngIf="!bugForm">
+    <h5 class="mb-1">Please wait</h5>
+    <mat-progress-spinner color="primary" mode="indeterminate" class="m-auto"></mat-progress-spinner>
+  </div>
   <h4>{{editingBug ? 'Edit Bug' : 'Add New Bug'}}</h4>
   <mat-divider class="mb-3"></mat-divider>
   <mat-card>
@@ -9,7 +13,8 @@
             <span class="required-field" *ngIf="bugForm.get('title').invalid">*</span>
           </label>
           <input type="text" class="form-control" formControlName="title" name="title">
-          <div class="required-field" *ngIf="bugForm.get('title').invalid && bugForm.get('title').dirty">Field is required</div>
+          <div class="required-field" *ngIf="bugForm.get('title').invalid && bugForm.get('title').dirty">Field is
+            required</div>
         </div>
       </div>
       <div class="row">
@@ -18,7 +23,8 @@
             <span class="required-field" *ngIf="bugForm.get('description').invalid">*</span>
           </label>
           <textarea rows=4 class="form-control" formControlName="description" name="description"></textarea>
-          <div class="required-field" *ngIf="bugForm.get('description').invalid && bugForm.get('description').dirty">Field is required</div>
+          <div class="required-field" *ngIf="bugForm.get('description').invalid && bugForm.get('description').dirty">
+            Field is required</div>
         </div>
       </div>
       <div class="row">
@@ -32,7 +38,8 @@
               {{priorityOption[0]}}
             </option>
           </select>
-          <div class="required-field" *ngIf="bugForm.get('priority').invalid && bugForm.get('priority').dirty">Field is required</div>
+          <div class="required-field" *ngIf="bugForm.get('priority').invalid && bugForm.get('priority').dirty">Field is
+            required</div>
         </div>
         <div class="col">
           <label>Reporter</label>
@@ -55,15 +62,59 @@
               {{statusOption}}
             </option>
           </select>
-          <div class="required-field" *ngIf="bugForm.get('status').invalid && bugForm.get('status').dirty">Field is required</div>
+          <div class="required-field" *ngIf="bugForm.get('status').invalid && bugForm.get('status').dirty">Field is
+            required</div>
         </div>
       </div>
+      <mat-card-actions class="text-center mt-3">
+        <button mat-raised-button color="primary" (click)="saveBug()">{{editingBug ? 'Edit Bug' : 'Add Bug'}}</button>
+        <button mat-raised-button [routerLink]="['/bug-list']" color="accent">Cancel and return</button>
+      </mat-card-actions>
+
+      <ng-container *ngIf="editingBug">
+        <div class="row mt-3 mb-3">
+          <mat-divider></mat-divider>
+        </div>
+        <div class="row">
+          <div class="col" formArrayName="comments">
+            <div [formGroupName]="bugForm.get('comments').controls.length - 1">
+              <h5>Add a comment</h5>
+              <div>
+                <input class="form-control" type="text" formControlName="reporter" placeholder="Reporter" />
+              </div>
+              <div>
+                <textarea class="form-control" type="text" formControlName="description"
+                  placeholder="Description"></textarea>
+              </div>
+            </div>
+            <mat-card-actions class="text-center mt-3">
+              <button mat-raised-button color="primary" (click)="addComment()">Add Comment</button>
+            </mat-card-actions>
+            <mat-divider></mat-divider>
+            <label><strong>Comments</strong></label>
+            <mat-list *ngIf="editingBug.comments">
+              <mat-list-item multil *ngFor="let comment of editingBug.comments">
+                <div matLine class="p-1 comment">
+                  <p matLine>{{comment.description}}</p>
+                </div>
+                <div matLine class="text-right">
+                  <strong>Reported by:</strong>&nbsp;<span>{{comment.reporter}}</span>
+                </div>
+              </mat-list-item>
+            </mat-list>
+
+
+          </div>
+        </div>
+      </ng-container>
     </form>
-    <mat-card-actions class="text-center mt-3">
-      <button mat-raised-button color="primary" (click)="addBug()">{{editingBug ? 'Edit Bug' : 'Add Bug'}}</button>
-      <button mat-raised-button [routerLink]="['/bug-list']" color="accent">Cancel and return</button>
-    </mat-card-actions>
   </mat-card>
+
 </div>
 
+
+<!-- <div formArrayName="comments" *ngFor="let comment of bugForm.get('comments').controls;let i = index;">
+                      <textarea class="form-control" [formControlName]="i" [value]="">
+                      </textarea>
+                  </div> -->
 <!-- <pre>{{bugForm?.value | json}}</pre> -->

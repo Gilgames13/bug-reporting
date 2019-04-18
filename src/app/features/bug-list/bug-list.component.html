@@ -41,7 +41,11 @@
       matTooltip="Add a new bug" matTooltipPosition="left">
       <fa name="plus" size="lg"></fa>
     </a>
-    <mat-table [dataSource]="listOfBugs">
+    <div class="p-2 m-2 text-center" *ngIf="listOfBugs.loading$ | async" >
+      <h5 class="mb-1">Please wait</h5>
+      <mat-progress-spinner color="primary" mode="indeterminate" class="m-auto"></mat-progress-spinner>
+    </div>
+    <mat-table [dataSource]="listOfBugs" *ngIf="!(listOfBugs.loading$ | async)">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
         <mat-cell *matCellDef="let bug">
