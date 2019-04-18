@@ -12,6 +12,7 @@ import { PriorityEnum } from 'src/app/shared/enums/PriorityEnum';
 import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
 import { GenericDialogComponent } from 'src/app/shared/shared-material/generic-dialog/generic-dialog.component';
 import { GenericDialogValues } from 'src/app/shared/enums/GenericDialogValues';
+import { Sort } from '@angular/material';
 
 @Component({
   selector: 'app-bug-list',
@@ -29,6 +30,7 @@ export class BugListComponent implements OnInit, AfterViewInit {
   bugSearchForm: FormGroup;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  theSort: Sort = { active: '', direction: '' };
 
   constructor(private restService: BugRestApiService, private fb: FormBuilder, public dialog: MatDialog, private snackBar: MatSnackBar, ) { this.createForm(); }
 
@@ -56,7 +58,8 @@ export class BugListComponent implements OnInit, AfterViewInit {
 
   search() {
     console.log('search');
-    this.listOfBugs.loadBugs(this.paginator.pageIndex, this.paginator.pageSize, '', '', this.bugSearchForm.value as Filters);
+    this.paginator.pageIndex = 0;
+    this.reloadBugs();
   }
 
   delete(id: string) {
@@ -87,7 +90,18 @@ export class BugListComponent implements OnInit, AfterViewInit {
 
   loadNextBugs() {
     console.log('Page index: ' + this.paginator.pageIndex);
-    this.listOfBugs.loadBugs(this.paginator.pageIndex, this.paginator.pageSize, '', '', this.bugSearchForm.value as Filters);
+    this.reloadBugs();
+  }
+
+  sortData(sort: Sort) {
+    console.log('sorting');
+    sort.direction !== '' ? this.theSort = sort : this.theSort = { active: '', direction: '' };
+    this.reloadBugs();
+  }
+
+  reloadBugs() {
+    this.listOfBugs.loadBugs(this.paginator.pageIndex, this.paginator.pageSize,
+      this.theSort.active, this.theSort.direction, this.bugSearchForm.value as Filters);
   }
 
 }
