@@ -1,0 +1,10 @@
+<mat-card-title>
+  <h1 mat-dialog-title>{{title}}</h1>
+</mat-card-title>
+<div mat-dialog-content>
+  <p>{{content}}</p>
+</div>
+<div mat-dialog-actions class="m-auto text-center justify-content-center">
+  <button *ngIf="cancelButton" mat-raised-button (click)="cancel()">{{cancelButton}}</button>
+  <button mat-raised-button color="primary" (click)="accept()">{{acceptButton}}</button>
+</div>

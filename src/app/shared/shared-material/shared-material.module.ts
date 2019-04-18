@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule, MatButtonModule, MatDividerModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatCardModule,MatFormFieldModule, MatInputModule, MatIconModule,MatSnackBarModule, MatTooltipModule,MatPaginatorModule, MatPaginator, MatSelectModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatDividerModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule, MatSnackBarModule, MatTooltipModule, MatPaginatorModule, MatPaginator, MatSelectModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { GenericDialogComponent } from './generic-dialog/generic-dialog.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [GenericDialogComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -18,10 +19,12 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     MatPaginatorModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatSelectModule,
+    MatDialogModule,
     AngularFontAwesomeModule
   ],
   exports: [
@@ -32,19 +35,19 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     MatTableModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatCardModule,
-    MatSelectModule,
-    MatFormFieldModule,
-
-    MatInputModule,
+    MatPaginatorModule,
     MatSnackBarModule,
     MatTooltipModule,
-
-
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatIconModule,
-
-    AngularFontAwesomeModule,
-MatPaginatorModule,
-  ]
+    MatSelectModule,
+    MatDialogModule,
+    AngularFontAwesomeModule
+  ],
+  entryComponents: [
+    GenericDialogComponent
+  ],
 })
 export class SharedMaterialModule { }

@@ -62,4 +62,8 @@ export class BugRestApiService {
     return this.http.get<Bug>(`${env.api_root}/bugs/${id}`);
   }
 
+  deleteBug(id: string): Observable<boolean> {
+    return this.http.delete<boolean>(`${env.api_root}/bugs/${id}`);
+  }
+
 }
