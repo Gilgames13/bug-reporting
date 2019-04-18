@@ -7,3 +7,20 @@ button.mat-icon-button:active{
 .mat-header-cell {
   color: #28a7a2;
 }
+
+.add-button{
+  position: absolute;
+  top: 2em;
+  right: 5em;
+  width: 30px;
+  height: 30px;
+}
+
+:host ::ng-deep .mat-button-wrapper{
+  padding: 0px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  font-size: 12px;
+}

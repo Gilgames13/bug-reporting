@@ -94,7 +94,7 @@ export class BugListComponent implements OnInit, AfterViewInit {
   }
 
   sortData(sort: Sort) {
-    console.log('sorting',sort);
+    console.log('sorting', sort);
     sort.direction !== '' ? this.theSort = sort : this.theSort = { active: '', direction: '' };
     this.reloadBugs();
   }
@@ -102,6 +102,11 @@ export class BugListComponent implements OnInit, AfterViewInit {
   reloadBugs() {
     this.listOfBugs.loadBugs(this.paginator.pageIndex, this.paginator.pageSize,
       this.theSort.active, this.theSort.direction, this.bugSearchForm.value as Filters);
+  }
+
+  clearFilters() {
+    this.bugSearchForm.reset();
+    this.reloadBugs();
   }
 
 }

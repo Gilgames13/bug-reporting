@@ -2,7 +2,7 @@
   <h4>Bugs List</h4>
   <mat-divider class="mb-3"></mat-divider>
   <mat-card>
-    <form (ngSubmit)="search()" [formGroup]="bugSearchForm">
+    <form (ngSubmit)="search()" [formGroup]="bugSearchForm" style="display: flex;align-items:center;">
       <mat-form-field>
         <input matInput placeholder="Title" formControlName="title">
       </mat-form-field>
@@ -33,15 +33,21 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-icon-button>
+      <button mat-raised-button color="primary" class="ml-2 mb-2">
         <mat-icon>search</mat-icon>Search
       </button>
+      <button mat-raised-button color="accent" (click)="clearFilters()" class="ml-2 mb-2">
+        <mat-icon>replay</mat-icon>Clear
+      </button>
+
+
+      <a mat-mini-fab color="accent" class="ml-auto add-button" [routerLink]="['/add-bug']" matTooltip="Add a new bug"
+        matTooltipPosition="left">
+        <fa name="plus" size="lg"></fa>
+      </a>
     </form>
-    <a mat-mini-fab color="accent" class="ml-auto" style="display:block;" [routerLink]="['/add-bug']" matTooltip="Add a new bug"
-      matTooltipPosition="left">
-      <fa name="plus" size="lg"></fa>
-    </a>
-    <div class="p-2 m-2 text-center" *ngIf="listOfBugs.loading$ | async" >
+
+    <div class="p-2 m-2 text-center" *ngIf="listOfBugs.loading$ | async">
       <h5 class="mb-1">Please wait</h5>
       <mat-progress-spinner color="primary" mode="indeterminate" class="m-auto"></mat-progress-spinner>
     </div>
@@ -105,7 +111,8 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-    <mat-paginator [length]="listOfBugs.totalRecords" [pageSize]="5" [pageSizeOptions]="[5,10,20,listOfBugs.totalRecords]"></mat-paginator>
+    <mat-paginator [length]="listOfBugs.totalRecords" [pageSize]="5"
+      [pageSizeOptions]="[5,10,20,listOfBugs.totalRecords]"></mat-paginator>
   </mat-card>
 
 </div>
