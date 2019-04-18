@@ -37,11 +37,11 @@
         <mat-icon>search</mat-icon>Search
       </button>
     </form>
-    <a mat-mini-fab color="accent" class="ml-auto" style="display:block;" [routerLink]="['/add-bug']"
-      matTooltip="Add a new bug" matTooltipPosition="left">
+    <a mat-mini-fab color="accent" class="ml-auto" style="display:block;" [routerLink]="['/add-bug']" matTooltip="Add a new bug"
+      matTooltipPosition="left">
       <fa name="plus" size="lg"></fa>
     </a>
-    <mat-table [dataSource]="listOfBugs">
+    <mat-table matSort (matSortChange)="sortData($event)" [dataSource]="listOfBugs">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
         <mat-cell *matCellDef="let bug">
@@ -50,21 +50,21 @@
       </ng-container>
 
       <ng-container matColumnDef="title">
-        <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
         <mat-cell class="description-cell" *matCellDef="let bug">
           {{bug.title}}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="priority">
-        <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
         <mat-cell class="description-cell" *matCellDef="let bug">
           {{bug.priority}}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="reporter">
-        <mat-header-cell *matHeaderCellDef>Reporter</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Reporter</mat-header-cell>
         <mat-cell class="description-cell" *matCellDef="let bug">
           {{bug.reporter}}
         </mat-cell>
@@ -78,7 +78,7 @@
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
         <mat-cell class="description-cell" *matCellDef="let bug">
           {{bug.status}}
         </mat-cell>
@@ -94,11 +94,9 @@
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-    <mat-paginator [length]="listOfBugs.totalRecords" [pageSize]="5"
-      [pageSizeOptions]="[5,10,20,listOfBugs.totalRecords]"></mat-paginator>
+    <mat-paginator [length]="listOfBugs.totalRecords" [pageSize]="5" [pageSizeOptions]="[5,10,20,listOfBugs.totalRecords]"></mat-paginator>
   </mat-card>
 
 </div>
