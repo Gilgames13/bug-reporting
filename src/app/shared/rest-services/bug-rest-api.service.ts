@@ -41,20 +41,15 @@ export class BugRestApiService {
   }
 
   getBugsPaginatedSortedWithFilters(pageNumber: number = 0, pageSize: number = 10,
-      sortBy: string = '', sortOrder: string = '', filters: Filters = new Filters()): Observable<HttpResponse<Bug[]>> {
+    sortBy: string = '', sortOrder: string = '', filters: Filters = new Filters()): Observable<HttpResponse<Bug[]>> {
     let params = new HttpParams()
       .set('page', pageNumber.toString())
       .set('size', pageSize.toString());
     params = sortBy !== '' ? params.set('sort', sortBy + ',' + sortOrder) : params;
 
-    params = params.set('title', filters.title);
-    params = params.set('priority', filters.priority);
-    params = params.set('reporter', filters.reporter);
-    params = params.set('status', filters.status);
-
-    // filters.forEach((param) => {
-    //   params = params.set(param.key, param.value);
-    // });
+    for (const key of Object.keys(filters)) {
+      params = filters[key] ? params.set(key, filters[key]) : params;
+    }
 
     return this.http.get<Bug[]>(`${env.api_root}/bugs`, { observe: 'response', params });
   }
