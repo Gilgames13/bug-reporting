@@ -26,7 +26,7 @@ export class BugsDatasource extends DataSource<Bug> {
   disconnect(collectionViewer: CollectionViewer): void {
   }
 
-  loadBugs( pageNumber: number = 0, pageSize: number = 10,
+  loadBugs( pageNumber: number = 0, pageSize: number = 5,
             sortBy: string = '', sortOrder: string = '', filters: Filters = new Filters()) {
     this.loading$.next(true);
     this.restService.getBugsPaginatedSortedWithFilters(pageNumber, pageSize, sortBy, sortOrder, filters).pipe(

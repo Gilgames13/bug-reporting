@@ -7,20 +7,38 @@
         <input matInput placeholder="Title" formControlName="title">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Priority" formControlName="priority">
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          <mat-option [value]="''"></mat-option>
+          <mat-option *ngFor="let priority of priorityOptions" [value]="priority[1]">
+            {{priority[0]}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Reporter" formControlName="reporter">
+        <mat-label>Reporter</mat-label>
+        <mat-select formControlName="reporter">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let reporter of roleOptions" [value]="reporter">
+            {{reporter}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Status" formControlName="status">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let status of statusOptions" [value]="status">
+            {{status}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <button mat-icon-button>
         <mat-icon>search</mat-icon>Search
       </button>
     </form>
-    <a mat-mini-fab color="accent" class="ml-auto" style="display:block;" [routerLink]="['/add-bug']" matTooltip="Add a new bug"
-      matTooltipPosition="left">
+    <a mat-mini-fab color="accent" class="ml-auto" style="display:block;" [routerLink]="['/add-bug']"
+      matTooltip="Add a new bug" matTooltipPosition="left">
       <fa name="plus" size="lg"></fa>
     </a>
     <mat-table [dataSource]="listOfBugs">
@@ -79,9 +97,10 @@
 
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-    <mat-paginator [length]="listOfBugs.totalRecords" [pageSize]="[5,10,20]" [pageSizeOptions]="[5,10,20,listOfBugs.totalRecords]"></mat-paginator>
+    <mat-paginator [length]="listOfBugs.totalRecords" [pageSize]="5"
+      [pageSizeOptions]="[5,10,20,listOfBugs.totalRecords]"></mat-paginator>
   </mat-card>
 
 </div>
 
-{{bugSearchForm.value | json}}
+<!-- {{bugSearchForm.value | json}} -->
