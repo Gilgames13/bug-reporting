@@ -94,7 +94,7 @@ export class BugListComponent implements OnInit, AfterViewInit {
   }
 
   sortData(sort: Sort) {
-    console.log('sorting');
+    console.log('sorting',sort);
     sort.direction !== '' ? this.theSort = sort : this.theSort = { active: '', direction: '' };
     this.reloadBugs();
   }
