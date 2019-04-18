@@ -60,7 +60,7 @@
       </div>
     </form>
     <mat-card-actions class="text-center mt-3">
-      <button mat-raised-button color="primary" (click)="addBug()">{{editingBug ? 'Edit Bug' : 'Add Bug'}}</button>
+      <button mat-raised-button color="primary" (click)="saveBug()">{{editingBug ? 'Edit Bug' : 'Add Bug'}}</button>
       <button mat-raised-button [routerLink]="['/bug-list']" color="accent">Cancel and return</button>
     </mat-card-actions>
   </mat-card>

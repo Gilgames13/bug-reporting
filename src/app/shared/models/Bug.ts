@@ -9,8 +9,9 @@ export class Bug {
   comments: BugComment[];
   createdAt: Date;
   updatedAt: Date;
+  id: string;
 
-  constructor(title = '', description = '', priority = -1, reporter = '', status = '', comments = []) {
+  constructor(title = '', description = '', priority = -1, reporter = '', status = '', comments = [], id = null) {
     this.title = title;
     this.description = description;
     this.priority = priority;
@@ -19,5 +20,6 @@ export class Bug {
     this.comments = comments;
     this.createdAt = new Date();
     this.updatedAt = new Date();
+    this.id = id;
   }
 }

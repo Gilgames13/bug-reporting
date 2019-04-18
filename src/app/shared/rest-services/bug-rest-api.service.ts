@@ -54,8 +54,13 @@ export class BugRestApiService {
     return this.http.get<Bug[]>(`${env.api_root}/bugs`, { observe: 'response', params });
   }
 
-  createNewBug(bug: Bug): Observable<Bug> {
-    return this.http.post<Bug>(`${env.api_root}/bugs`, bug);
+  createEditBug(bug: Bug): Observable<Bug> {
+    if (bug.id) {
+      console.log('update');
+      return this.http.put<Bug>(`${env.api_root}/bugs/${bug.id}`, bug);
+    } else {
+      return this.http.post<Bug>(`${env.api_root}/bugs`, bug);
+    }
   }
 
   getBugById(id: string): Observable<Bug> {

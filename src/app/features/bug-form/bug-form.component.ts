@@ -72,9 +72,9 @@ export class BugFormComponent implements OnInit {
     }
   }
 
-  addBug() {
+  saveBug() {
     if (this.bugForm.valid) {
-      this.restApi.createNewBug(this.bugForm.value).subscribe((value) => {
+      this.restApi.createEditBug(this.bugForm.value).subscribe((value) => {
         this.router.navigate(['/bug-list']);
       },
         (error) => {
