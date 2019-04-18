@@ -51,7 +51,7 @@
       <h5 class="mb-1">Please wait</h5>
       <mat-progress-spinner color="primary" mode="indeterminate" class="m-auto"></mat-progress-spinner>
     </div>
-    <mat-table matSort (matSortChange)="sortData($event)" [dataSource]="listOfBugs">
+    <mat-table [class.hidden]="(listOfBugs.loading$ | async)" matSort (matSortChange)="sortData($event)" [dataSource]="listOfBugs">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
         <mat-cell *matCellDef="let bug">
