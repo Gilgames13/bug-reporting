@@ -13,7 +13,9 @@ import { RoleEnum } from '../enums/RoleEnum';
 })
 export class BugRestApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.loggedUser = sessionStorage.getItem('loggedUser') ? JSON.parse(sessionStorage.getItem('loggedUser')) : null;
+  }
 
   private pseudoUsers: User[] = [
     { username: 'qa_user', password: 'qa_user', role: RoleEnum.QA },
@@ -27,11 +29,13 @@ export class BugRestApiService {
   login(userName: string, password: string): Observable<User> {
     this.loggedUser = this.pseudoUsers.find((searchUser) => searchUser.username === userName && searchUser.password === password);
     this.loggedUser = this.loggedUser ? this.loggedUser : null;
+    sessionStorage.setItem('loggedUser',JSON.stringify(this.loggedUser));
     return of(this.loggedUser);
   }
 
   logout() {
     this.loggedUser = null;
+    sessionStorage.removeItem('loggedUser');
   }
 
   getAllBugs(): Observable<HttpResponse<Bug[]>> {

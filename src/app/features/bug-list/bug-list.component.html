@@ -102,7 +102,7 @@
           <a [routerLink]="['/edit-bug', bug.id]" matTooltip="Edit Bug" matTooltipPosition="left">
             <mat-icon>edit</mat-icon>
           </a>
-          <a mat-button (click)="delete(bug.id)" matTooltip="Delete Bug" matTooltipPosition="left">
+          <a (click)="delete(bug.id)" style="cursor:pointer;" matTooltip="Delete Bug" matTooltipPosition="left">
             <mat-icon color="error">delete</mat-icon>
           </a>
         </mat-cell>
