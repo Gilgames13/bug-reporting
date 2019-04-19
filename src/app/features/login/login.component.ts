@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   user: User = null;
   sampleUsers: User[] = [];
-  constructor(private restApi: BugRestApiService, private snackBar: MatSnackBar) { }
+  constructor(public restApi: BugRestApiService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.user = this.restApi.loggedUser ? this.restApi.loggedUser : new User();
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.restApi.login(this.user.username, this.user.password).subscribe((returnedUser) => {
       if (!returnedUser) {
-        this.snackBar.open('Could not log you in! :/', 'OK');
+        this.snackBar.open('Could not log you in! :/', 'OK', { duration: 3000 });
       } else {
         this.user = returnedUser;
       }

@@ -27,6 +27,7 @@ export class BugFormComponent implements OnInit {
   statusOptions: StatusEnum[] = [StatusEnum.READY_FOR_TEST, StatusEnum.DONE, StatusEnum.REJECTED];
   priorityOptions = $enum(PriorityEnum).getEntries();
   editingBug: Bug = null;
+  submitted = false;
 
   constructor(private restApi: BugRestApiService,
     private router: Router,
@@ -35,6 +36,7 @@ export class BugFormComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.submitted = false;
     this.currentRoute.params.pipe(
       map((params): string => params.id),
       flatMap((id) => {
@@ -90,11 +92,18 @@ export class BugFormComponent implements OnInit {
 
   saveBug() {
     if (this.bugForm.valid) {
+
       let toExec = this.restApi.createNewBug(this.bugForm.value);
       if (this.editingBug) {
+        // We don't add empty comments and reporter
+        const commentsArray = (this.bugForm.get('comments') as FormArray);
+        if (commentsArray && this.commentIsEmpty(commentsArray.at(commentsArray.length - 1).value as BugComment)) {
+          commentsArray.removeAt(commentsArray.length - 1);
+        }
         toExec = this.restApi.updateBug(this.editingBug.id, this.bugForm.value);
       }
       toExec.subscribe((value) => {
+        this.submitted = true;
         this.router.navigate(['/bug-list']);
       },
         (error) => {
@@ -116,6 +125,15 @@ export class BugFormComponent implements OnInit {
     });
   }
 
+  commentIsEmpty(comment: BugComment): boolean {
+    if (comment && comment.description && comment.description.length > 0 &&
+      comment.reporter && comment.reporter.length > 0) {
+      return false;
+    }
+    return true;
+  }
+
+
   createNewComment(comment: BugComment = { reporter: '', description: '' }) {
     return new FormGroup({
       reporter: new FormControl(comment.reporter),
@@ -124,7 +142,7 @@ export class BugFormComponent implements OnInit {
   }
 
   canDeactivate(): Observable<boolean> | boolean {
-    if (this.bugForm.dirty) {
+    if (this.bugForm.dirty && !this.submitted) {
       const dialogConfig: MatDialogConfig<GenericDialogValues> = {
         disableClose: true,
         data: {
