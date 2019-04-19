@@ -6,7 +6,7 @@
           <mat-card-title>Login</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <form #loginForm="ngForm">
+          <form #loginForm="ngForm" class="mb-5">
             <div class="form-group">
               <label for="username">Username</label>
               <input class="form-control" name="username" type="text" [(ngModel)]="user.username" />
@@ -16,15 +16,27 @@
 
             <button mat-raised-button color="primary" type="submit" (click)="login()">Login</button>
           </form>
+          <div class="mt-5" style="color:gray;">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <strong class="m-auto">Hint: Sample Users</strong>
+              </mat-expansion-panel-header>
+              <mat-list>
+                <mat-list-item *ngFor="let sampleUser of sampleUsers;" style="height:20px;">
+                  {{sampleUser.username}} / {{sampleUser.password}} (Role {{sampleUser.role}})
+                </mat-list-item>
+              </mat-list>
+            </mat-expansion-panel>
+          </div>
         </mat-card-content>
       </mat-card>
 
       <ng-template #logged>
         <mat-card>
           <mat-card-content>
-              <h5> Welcome {{user.username}}, with role {{user.role.toString()}}</h5>
-              <button mat-raised-button color="warning" type="submit" (click)="logout()">Logout</button>
-            </mat-card-content>
+            <h5> Welcome {{user.username}}, with role {{user.role.toString()}}</h5>
+            <button mat-raised-button color="warning" type="submit" (click)="logout()">Logout</button>
+          </mat-card-content>
         </mat-card>
       </ng-template>
     </div>

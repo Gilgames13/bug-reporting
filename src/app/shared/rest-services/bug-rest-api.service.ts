@@ -29,13 +29,17 @@ export class BugRestApiService {
   login(userName: string, password: string): Observable<User> {
     this.loggedUser = this.pseudoUsers.find((searchUser) => searchUser.username === userName && searchUser.password === password);
     this.loggedUser = this.loggedUser ? this.loggedUser : null;
-    sessionStorage.setItem('loggedUser',JSON.stringify(this.loggedUser));
+    sessionStorage.setItem('loggedUser', JSON.stringify(this.loggedUser));
     return of(this.loggedUser);
   }
 
   logout() {
     this.loggedUser = null;
     sessionStorage.removeItem('loggedUser');
+  }
+
+  getSampleUsers(): User[] {
+    return this.pseudoUsers;
   }
 
   getAllBugs(): Observable<HttpResponse<Bug[]>> {

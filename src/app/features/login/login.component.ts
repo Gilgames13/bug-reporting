@@ -11,10 +11,12 @@ import { MatSnackBar } from '@angular/material';
 export class LoginComponent implements OnInit {
 
   user: User = null;
+  sampleUsers: User[] = [];
   constructor(private restApi: BugRestApiService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.user = this.restApi.loggedUser ? this.restApi.loggedUser : new User();
+    this.sampleUsers = this.restApi.getSampleUsers();
   }
 
   login() {
