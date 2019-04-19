@@ -2,7 +2,7 @@
   <h4>Bugs List</h4>
   <mat-divider class="mb-3"></mat-divider>
   <mat-card>
-    <form (ngSubmit)="search()" [formGroup]="bugSearchForm" style="display: flex;align-items:center;">
+    <form (ngSubmit)="search()" [formGroup]="bugSearchForm">
       <mat-form-field>
         <input matInput placeholder="Title" formControlName="title">
       </mat-form-field>

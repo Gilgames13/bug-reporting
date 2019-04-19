@@ -79,7 +79,7 @@
           <div class="col" formArrayName="comments">
             <div [formGroupName]="bugForm.get('comments').controls.length - 1">
               <h5>Add a comment</h5>
-              <div>
+              <div class="mb-2">
                 <input class="form-control" type="text" formControlName="reporter" placeholder="Reporter" />
               </div>
               <div>
@@ -109,12 +109,4 @@
       </ng-container>
     </form>
   </mat-card>
-
 </div>
-
-
-<!-- <div formArrayName="comments" *ngFor="let comment of bugForm.get('comments').controls;let i = index;">
-                      <textarea class="form-control" [formControlName]="i" [value]="">
-                      </textarea>
-                  </div> -->
-<!-- <pre>{{bugForm?.value | json}}</pre> -->

@@ -1,25 +1,24 @@
-<div class="container">
+<div class="container" [@simpleFadeAnimation]="'in'">
   <div class="row">
-    <div class="col-sm-12">
-      <h1 class="display-4">Welcome to</h1>
-    </div>
-  </div>
-  <br/>
-  <br/>
-  <div class="row">
-    <div class="col-sm-6" id="famaCimex">
-      <h1 class="display-2 logo-text">Fama Cimex</h1>
+    <div class="col-sm-6" id="welcome-container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1 class="display-4">Welcome to</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12" id="famaCimex">
+          <h1 class="display-2 logo-text">Fama Cimex</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <h1 class="display-4">bug reporting system</h1>
+        </div>
+      </div>
     </div>
     <div class="col-sm-6">
-        <app-login></app-login>
+      <app-login></app-login>
     </div>
   </div>
-  <br/>
-  <br/>
-  <div class="row">
-    <div class="col-sm-12">
-      <h1 class="display-4">bug reporting system</h1>
-    </div>
-  </div>
-  <div class="divider w-100"></div>
 </div>

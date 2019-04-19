@@ -10,4 +10,5 @@
   <mat-divider [vertical]="true" style="min-height:30px;"></mat-divider>
   <button mat-button *ngIf="restApi.loggedUser" [routerLink]="['bug-list']" routerLinkActive="active">Bug List</button>
   <button mat-button *ngIf="restApi.loggedUser" (click)="logout()">Logout</button>
+  <span *ngIf="restApi.loggedUser" style="margin-left: auto; font-size:12px;">Logged as: {{restApi.loggedUser.username}}</span>
 </mat-toolbar>
