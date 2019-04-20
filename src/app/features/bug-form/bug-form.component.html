@@ -67,7 +67,8 @@
         </div>
       </div>
       <mat-card-actions class="text-center mt-3">
-        <button [disabled]="bugForm.invalid" mat-raised-button color="primary" (click)="saveBug()">{{editingBug ? 'Edit Bug' : 'Add Bug'}}</button>
+        <button [disabled]="bugForm.invalid" mat-raised-button color="primary"
+          (click)="saveBug()">{{editingBug ? 'Edit Bug' : 'Add Bug'}}</button>
         <button mat-raised-button [routerLink]="['/bug-list']" color="accent">Cancel and return</button>
       </mat-card-actions>
 
@@ -75,9 +76,9 @@
         <div class="row mt-3 mb-3">
           <mat-divider></mat-divider>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="bugForm.get('comments')">
           <div class="col" formArrayName="comments">
-            <div [formGroupName]="bugForm.get('comments').controls.length - 1">
+            <div [formGroupName]="bugForm.get('comments').value?.length - 1">
               <h5>Add a comment</h5>
               <div class="mb-2">
                 <input class="form-control" type="text" formControlName="reporter" placeholder="Reporter" />
