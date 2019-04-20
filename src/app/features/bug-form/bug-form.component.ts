@@ -52,10 +52,8 @@ export class BugFormComponent implements OnInit {
     ).subscribe((result: Bug) => this.editOrCreateBug(result));
   }
 
-  editOrCreateBug(bug: Bug) {
-    this.editingBug = bug;
-    console.log('will edit', bug);
-    this.bugForm = new FormGroup({
+  createBugForm(): FormGroup {
+    return new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       priority: new FormControl(null, Validators.required),
@@ -64,14 +62,24 @@ export class BugFormComponent implements OnInit {
       id: new FormControl(),
       comments: new FormArray([])
     });
+  }
+
+  checkShouldStatusBeRequired(value: RoleEnum) {
+    if (value === RoleEnum.QA) {
+      this.bugForm.get('status').setValidators(Validators.required);
+    } else {
+      this.bugForm.get('status').clearValidators();
+    }
+    this.bugForm.get('status').updateValueAndValidity();
+  }
+
+  editOrCreateBug(bug: Bug) {
+    this.editingBug = bug;
+    console.log('will edit', bug);
+    this.bugForm = this.createBugForm();
 
     this.bugForm.get('reporter').valueChanges.subscribe((value: RoleEnum) => {
-      if (value === RoleEnum.QA) {
-        this.bugForm.get('status').setValidators(Validators.required);
-      } else {
-        this.bugForm.get('status').clearValidators();
-      }
-      this.bugForm.get('status').updateValueAndValidity();
+      this.checkShouldStatusBeRequired(value);
     });
 
     // In this case we have an edit
