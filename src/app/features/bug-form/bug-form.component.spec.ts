@@ -35,7 +35,6 @@ fdescribe('BugFormComponent', () => {
   });
 
   it('Form should be valid when minimum required fields are filled', () => {
-    component.createBugForm();
     component.bugForm.get('title').setValue('A bug title');
     component.bugForm.get('description').setValue('A bug description');
     component.bugForm.get('priority').setValue(PriorityEnum.Major);
@@ -44,7 +43,6 @@ fdescribe('BugFormComponent', () => {
   });
 
   it('Form should be invalid when reporter is QA and status is not filled', () => {
-    component.editOrCreateBug(null);
     component.bugForm.get('title').setValue('A bug title');
     component.bugForm.get('description').setValue('A bug description');
     component.bugForm.get('priority').setValue(PriorityEnum.Major);
@@ -54,7 +52,6 @@ fdescribe('BugFormComponent', () => {
   });
 
   it('Form should be valid when minimum required fields are filled, reporter is QA and status is filled as well', () => {
-    component.editOrCreateBug(null);
     component.bugForm.get('title').setValue('A bug title');
     component.bugForm.get('description').setValue('A bug description');
     component.bugForm.get('priority').setValue(PriorityEnum.Major);
