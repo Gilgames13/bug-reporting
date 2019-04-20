@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthorizationInterceptor } from './interceptors/authorization-interceptor';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
@@ -11,13 +10,6 @@ import { AuthorizationInterceptor } from './interceptors/authorization-intercept
   ],
   exports: [
     HttpClientModule
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthorizationInterceptor,
-      multi: true
-    }
   ]
 })
 export class RestServicesModule { }
