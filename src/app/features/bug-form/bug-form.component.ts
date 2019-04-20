@@ -28,6 +28,7 @@ export class BugFormComponent implements OnInit {
   priorityOptions = $enum(PriorityEnum).getEntries();
   editingBug: Bug = null;
   submitted = false;
+  roleEnum = RoleEnum;
 
   constructor(private restApi: BugRestApiService,
     private router: Router,

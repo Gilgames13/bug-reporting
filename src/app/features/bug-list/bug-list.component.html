@@ -69,7 +69,7 @@
       <ng-container matColumnDef="priority">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
         <mat-cell class="description-cell" *matCellDef="let bug">
-          {{bug.priority}}
+          {{priorityEnum[bug.priority]}}
         </mat-cell>
       </ng-container>
 

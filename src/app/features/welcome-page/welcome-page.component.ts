@@ -13,7 +13,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       // fade in when created
       transition(':enter', [
         style({ opacity: 0 }),
-        animate(600)
+        animate(1000)
       ]),
       // fade out when destroyed
       transition(':leave',

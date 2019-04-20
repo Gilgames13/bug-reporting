@@ -28,6 +28,7 @@ export class BugListComponent implements OnInit, AfterViewInit {
   statusOptions: StatusEnum[] = [StatusEnum.READY_FOR_TEST, StatusEnum.DONE, StatusEnum.REJECTED];
   priorityOptions = $enum(PriorityEnum).getEntries();
   bugSearchForm: FormGroup;
+  priorityEnum = PriorityEnum;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   theSort: Sort = { active: '', direction: '' };

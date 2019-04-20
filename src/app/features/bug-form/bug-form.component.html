@@ -76,7 +76,7 @@
         <div class="row mt-3 mb-3">
           <mat-divider></mat-divider>
         </div>
-        <div class="row" *ngIf="bugForm.get('comments')">
+        <div class="row" *ngIf="bugForm.get('comments') && bugForm.get('reporter').value !== roleEnum.QA ">
           <div class="col" formArrayName="comments">
             <div [formGroupName]="bugForm.get('comments').value?.length - 1">
               <h5>Add a comment</h5>
